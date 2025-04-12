@@ -55,6 +55,12 @@ build CMakeFiles/Interview.dir/rule_5.cpp.o: CXX_COMPILER__Interview_unscanned_D
   OBJECT_DIR = CMakeFiles/Interview.dir
   OBJECT_FILE_DIR = CMakeFiles/Interview.dir
 
+build CMakeFiles/Interview.dir/algo.cpp.o: CXX_COMPILER__Interview_unscanned_Debug /Users/sishrak/Desktop/Interview/algo.cpp || cmake_object_order_depends_target_Interview
+  DEP_FILE = CMakeFiles/Interview.dir/algo.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -mmacosx-version-min=15.3 -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Interview.dir
+  OBJECT_FILE_DIR = CMakeFiles/Interview.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Interview
@@ -63,7 +69,7 @@ build CMakeFiles/Interview.dir/rule_5.cpp.o: CXX_COMPILER__Interview_unscanned_D
 #############################################
 # Link the executable Interview
 
-build Interview: CXX_EXECUTABLE_LINKER__Interview_Debug CMakeFiles/Interview.dir/rule_5.cpp.o
+build Interview: CXX_EXECUTABLE_LINKER__Interview_Debug CMakeFiles/Interview.dir/rule_5.cpp.o CMakeFiles/Interview.dir/algo.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.4.sdk -mmacosx-version-min=15.3
   OBJECT_DIR = CMakeFiles/Interview.dir
   POST_BUILD = :
