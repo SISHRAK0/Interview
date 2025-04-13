@@ -169,12 +169,26 @@ public:
         return maxl;
     }
 
+    int subarraySum(vector<int> &nums, int k) {
+        unordered_map<int, int> sum;
+        sum[0] = 1;
+        int total = 0, count = 0;
+        for (auto n: nums) {
+            total += n;
+            if (sum.find(total - k) != sum.end()) {
+                count += sum[total - k];
+            }
+            sum[total]++;
+        }
+        return count;
+    }
+
     bool isValid(string s) {
         stack<char> st;
-        for(char cur : s){
-            if(!st.empty()){
+        for (char cur: s) {
+            if (!st.empty()) {
                 char last = st.top();
-                if((last == '(' && cur == ')') || (last == '{' && cur == '}') || (last == '[' && cur == ']')){
+                if ((last == '(' && cur == ')') || (last == '{' && cur == '}') || (last == '[' && cur == ']')) {
                     st.pop();
                     continue;
                 }
@@ -185,6 +199,19 @@ public:
         return st.empty();
     }
 
+    vector<int> twoSum(vector<int> &nums, int target) {
+        unordered_map<int, int> par;
+        int num = 0;
+        for(int i = 0; i < nums.size();i++){
+            num = nums[i];
+            if(par.find(target - num) != par.end()){
+                return {i, par[target - num]};
+            }
+            par[num] = i;
+        }
+        return {};
+
+    }
 
 };
 
