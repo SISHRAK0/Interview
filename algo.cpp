@@ -18,6 +18,18 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
 class Solution {
 public:
     vector<string> summaryRanges(vector<int> &nums) {
@@ -202,15 +214,67 @@ public:
     vector<int> twoSum(vector<int> &nums, int target) {
         unordered_map<int, int> par;
         int num = 0;
-        for(int i = 0; i < nums.size();i++){
+        for (int i = 0; i < nums.size(); i++) {
             num = nums[i];
-            if(par.find(target - num) != par.end()){
+            if (par.find(target - num) != par.end()) {
                 return {i, par[target - num]};
             }
             par[num] = i;
         }
         return {};
+    }
 
+    bool checkInclusion(string s1, string s2) {
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+        vector<int> s1c(26), s2c(26);
+        for (int i = 0; i < s1.size(); i++) {
+            s1c[s1[i] - 'a']++;
+            s2c[s2[i] - 'a']++;
+        }
+        for (int i = 0; i < s2.size() - s1.size(); i++) {
+            if (s1c == s2c) {
+                return true;
+            }
+            s2c[s2[i] - 'a']--;
+            s2c[s2[i + s1.length()] - 'a']++;
+        }
+        return s2c == s1c;
+    }
+
+    vector<vector<int>> merge(vector<vector<int>> &intervals) {
+        sort(intervals.begin(), intervals.end(), [](const vector<int> &a, const vector<int> &b) {
+            return a[0] < b[0];
+        });
+        vector<vector<int>> ans;
+        vector<int> prev = intervals[0];
+        for (int i = 1; i < intervals.size(); i++) {
+            vector<int> interval = intervals[i];
+            if (interval[0] <= prev[1]) {
+                prev[1] = max(prev[1], interval[1]);
+            } else {
+                ans.push_back(prev);
+                prev = interval;
+            }
+        }
+        ans.push_back(prev);
+        return ans;
+    }
+
+
+    bool valid(TreeNode *root, int mini, int maxi) {
+        if (!root) {
+            return true;
+        }
+        if(!(root->val > mini && root->val < maxi)){
+            return false;
+        }
+        return valid(root->left, mini, root->val) && valid(root->right, root->val, maxi);
+    }
+
+    bool isValidBST(TreeNode *root) {
+        return valid(root, INT_MIN, INT_MAX);
     }
 
 };
