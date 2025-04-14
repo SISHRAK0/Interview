@@ -267,7 +267,7 @@ public:
         if (!root) {
             return true;
         }
-        if(!(root->val > mini && root->val < maxi)){
+        if (!(root->val > mini && root->val < maxi)) {
             return false;
         }
         return valid(root->left, mini, root->val) && valid(root->right, root->val, maxi);
@@ -277,9 +277,59 @@ public:
         return valid(root, INT_MIN, INT_MAX);
     }
 
+    vector<vector<int>> generateMatrix(int n) {
+        if (n == 0) {
+            return {};
+        }
+        vector<vector<int>> ans(n, vector<int>(n));
+        int l = 0, r = n - 1, top = 0, down = n - 1, num = 1;
+        while (l <= r && top <= down) {
+            for (int i = l; i <= r; i++) {
+                ans[top][i] = num++;
+            }
+            top++;
+            for (int i = top; i <= down; i++) {
+                ans[i][r] = num++;
+            }
+            r--;
+            if (top <= down) {
+                for (int i = r; i >= l; i--) {
+                    ans[down][i] = num++;
+                }
+                down--;
+            }
+            if (l <= r) {
+                for (int i = down; i >= top; i--) {
+                    ans[i][l] = num++;
+                }
+                l++;
+            }
+        }
+        return ans;
+    }
+
+    int longestOnes(vector<int> &nums, int k) {
+        int l = 0, maxlen = 0, cnt = 0;
+        for(int r = 0; r < nums.size();r++){
+            if(nums[r] == 0){
+                cnt++;
+            }
+            while(cnt > k){
+                if(nums[l] == 0){
+                    cnt--;
+                }
+                l++;
+            }
+            maxlen = max(maxlen, r - l + 1);
+        }
+        return maxlen;
+    }
+    int lengthOfLongestSubstring(string s) {
+
+    }
 };
 
 int main() {
 
-    return 0;
+
 }
